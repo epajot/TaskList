@@ -102,3 +102,9 @@ struct MailView: UIViewControllerRepresentable {
     context: UIViewControllerRepresentableContext<MailView>
   ) { }
 }
+
+struct MailView_Previews: PreviewProvider {
+  static var previews: some View {
+    /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+  }
+}
