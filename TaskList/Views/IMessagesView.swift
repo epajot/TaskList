@@ -30,24 +30,8 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-// import SwiftUI
-
-// struct IMessagesView: View {
-//    var body: some View {
-//        Text("Hello, iMessage World!")
-//    }
-// }
-//
-// struct IMessagesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        IMessagesView()
-//    }
-// }
-
 import MessageUI
 import SwiftUI
-
-// typealias AttachmentInfo = (fileURL: URL, mimeType: String)
 
 // public enum MFMailComposeResult : Int {
 //    case cancelled = 0
@@ -63,10 +47,18 @@ import SwiftUI
 // }
 
 enum MessageComposeError: Error {
+  case cancelled
+  case failed
   case unknown
-}
 
-// TODO: replace MFMailComposeViewController by MFMessageComposeViewController
+  init(_ mcres: MessageComposeResult) {
+    switch mcres {
+    case .cancelled: self = .cancelled
+    case .failed: self = .failed
+    default: self = .unknown
+    }
+  }
+}
 
 struct IMessagesView: UIViewControllerRepresentable {
   @Environment(\.presentationMode) var presentation
@@ -92,29 +84,15 @@ struct IMessagesView: UIViewControllerRepresentable {
       _result = result
     }
 
-//    func mailComposeController(
-//      _ controller: MFMailComposeViewController,
-//      didFinishWith result: MFMailComposeResult,
-//      error: Error?
-//    ) {
-//      defer {
-//        $presentation.wrappedValue.dismiss()
-//      }
-//      if let error = error {
-//        self.result = .failure(error)
-//        return
-//      }
-//      self.result = .success(result)
-//    }
-
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
       defer {
         $presentation.wrappedValue.dismiss()
       }
-      if result == .sent {
+      switch result {
+      case .sent:
         self.result = .success(.sent)
-      } else {
-        self.result = .failure(MessageComposeError.unknown)
+      default:
+        self.result = .failure(MessageComposeError(result))
       }
     }
   }
@@ -133,8 +111,7 @@ struct IMessagesView: UIViewControllerRepresentable {
   ) -> MFMessageComposeViewController {
     let viewController = MFMessageComposeViewController()
     viewController.messageComposeDelegate = context.coordinator
-    // viewController.setMessageBody(context.coordinator.messageBody, isHTML: false)
-    // TODO: ^^^
+    viewController.body = context.coordinator.messageBody
 
     if let fileURL = attachmentInfo?.fileURL,
       let mimeType = attachmentInfo?.mimeType,
@@ -153,29 +130,3 @@ struct IMessagesView: UIViewControllerRepresentable {
     context: UIViewControllerRepresentableContext<IMessagesView>
   ) {}
 }
-
-// func presentMessageVC(recipientPhoneNumbers: [String]) {
-//    guard MFMailComposeViewController.canSendMail() else {
-//        // TODO: Show alert informing the user
-//        printClassAndFunc(info: "canSendMail: false")
-//        return
-//    }
-//    // EP's Test Doesn't Work
-//    if !MFMessageComposeViewController.canSendText() {
-//        print("SMS services are not available")
-//    }
-//
-//    let messageVC = MFMessageComposeViewController()
-//    MFMessageComposeViewController.canSendAttachments() // EP's Test Doesn't Work
-//    messageVC.title = "\(String(describing: SharedUserDefaults.selectedCalendarTitle))'s Club" // EP's Test
-//    messageVC.body = ""
-//
-//    messageVC.recipients = recipientPhoneNumbers
-//
-//    messageVC.messageComposeDelegate = self
-//    messageVC.modalTransitionStyle = .crossDissolve
-//    messageVC.modalPresentationStyle = .fullScreen
-//
-//    present(messageVC, animated: true, completion: nil)
-// }
-//
