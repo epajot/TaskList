@@ -72,6 +72,21 @@ struct ContentView: View {
                 mimeType: "application/xml"),
               result: self.$result)
           }
+          
+          // Export Via iMessages
+          Button(action: { self.mailViewIsPresented = true }) {
+            Image(systemName: "square.and.pencil")
+          }
+          .frame(width: 44, height: 44, alignment: .center)
+          .disabled(!MFMailComposeViewController.canSendMail())
+          .sheet(isPresented: $mailViewIsPresented) {
+            MailView(
+              messageBody: "This is a test email string",
+              attachmentInfo: (
+                fileURL: TaskStore.shared.tasksDocURL,
+                mimeType: "application/xml"),
+              result: self.$result)
+          }
 
           // Share Sheet
           Button(action: { self.shareSheetIsPresented = true }) {
