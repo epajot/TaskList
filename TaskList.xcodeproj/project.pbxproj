@@ -25,6 +25,7 @@
 		49EEFE4E232484F6002A7EA8 /* TaskStore.PrioritizedTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EEFE4D232484F6002A7EA8 /* TaskStore.PrioritizedTasks.swift */; };
 		49FA301C22DC987B00E4CA56 /* RowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA301B22DC987B00E4CA56 /* RowView.swift */; };
 		556EF3AA23307E7100FD33A9 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556EF3A923307E7100FD33A9 /* FileManager.swift */; };
+		EA03E6BB24FEAC5900F9492C /* IMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA03E6BA24FEAC5900F9492C /* IMessagesView.swift */; };
 		F5B53C5223EEFF1300F6020C /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B53C5123EEFF1300F6020C /* MailView.swift */; };
 		F5B53C5423EF066E00F6020C /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B53C5323EF066E00F6020C /* ShareSheet.swift */; };
 		F5CA529623EEDB9500740B40 /* icon-doc.png in Resources */ = {isa = PBXBuildFile; fileRef = F5CA529523EEDB9500740B40 /* icon-doc.png */; };
@@ -51,6 +52,7 @@
 		49EEFE4D232484F6002A7EA8 /* TaskStore.PrioritizedTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStore.PrioritizedTasks.swift; sourceTree = "<group>"; };
 		49FA301B22DC987B00E4CA56 /* RowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowView.swift; sourceTree = "<group>"; };
 		556EF3A923307E7100FD33A9 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		EA03E6BA24FEAC5900F9492C /* IMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMessagesView.swift; sourceTree = "<group>"; };
 		F5B53C5123EEFF1300F6020C /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		F5B53C5323EF066E00F6020C /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		F5CA529523EEDB9500740B40 /* icon-doc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-doc.png"; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				49BBDA0F22ECF0EE00376C62 /* SectionView.swift */,
 				491C6E2822DF6DFA00C55030 /* TaskEditingView.swift */,
 				F5B53C5123EEFF1300F6020C /* MailView.swift */,
+				EA03E6BA24FEAC5900F9492C /* IMessagesView.swift */,
 				F5B53C5323EF066E00F6020C /* ShareSheet.swift */,
 			);
 			path = Views;
@@ -271,6 +274,7 @@
 				49BBDA1022ECF0EE00376C62 /* SectionView.swift in Sources */,
 				49EEFE4E232484F6002A7EA8 /* TaskStore.PrioritizedTasks.swift in Sources */,
 				49A2856322DC34F600B65A77 /* SceneDelegate.swift in Sources */,
+				EA03E6BB24FEAC5900F9492C /* IMessagesView.swift in Sources */,
 				F5B53C5223EEFF1300F6020C /* MailView.swift in Sources */,
 				49A2856522DC34F600B65A77 /* ContentView.swift in Sources */,
 				493268BD2313A343005F77B2 /* IndexedCollection.swift in Sources */,

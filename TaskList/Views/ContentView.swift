@@ -35,6 +35,7 @@ struct ContentView: View {
   @State var result: Result<MFMailComposeResult, Error>?
   @State var modalIsPresented = false
   @State var mailViewIsPresented = false
+  @State var iMessagesViewIsPresented = false
   @State var shareSheetIsPresented = false
 
   var body: some View {
@@ -74,14 +75,14 @@ struct ContentView: View {
           }
           
           // Export Via iMessages
-          Button(action: { self.mailViewIsPresented = true }) {
+          Button(action: { self.iMessagesViewIsPresented = true }) {
             Image(systemName: "square.and.pencil")
           }
           .frame(width: 44, height: 44, alignment: .center)
           .disabled(!MFMailComposeViewController.canSendMail())
           .sheet(isPresented: $mailViewIsPresented) {
             MailView(
-              messageBody: "This is a test email string",
+              messageBody: "This is a test iMessages string",
               attachmentInfo: (
                 fileURL: TaskStore.shared.tasksDocURL,
                 mimeType: "application/xml"),
