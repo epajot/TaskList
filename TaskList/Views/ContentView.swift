@@ -26,15 +26,18 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
 import MessageUI
+import SwiftUI
 
 // swiftlint:disable multiple_closures_with_trailing_closure
 struct ContentView: View {
   @ObservedObject var taskStore: TaskStore
-  @State var result: Result<MFMailComposeResult, Error>?
+  @State var mailComposeResult: Result<MFMailComposeResult, Error>?
+  //@State var messageComposeResult: Result<MessageComposeResult, Error>?
+  // can't use messageComposeResult because  2 controllers presented in HStack must have same init signature
   @State var modalIsPresented = false
   @State var mailViewIsPresented = false
+  @State var iMessagesViewIsPresented = false
   @State var shareSheetIsPresented = false
 
   var body: some View {
@@ -58,6 +61,7 @@ struct ContentView: View {
           .sheet(isPresented: $modalIsPresented) {
             NewTaskView(taskStore: self.taskStore)
           }
+
           // Export Via Email
           Button(action: { self.mailViewIsPresented = true }) {
             Image(systemName: "envelope")
@@ -69,8 +73,27 @@ struct ContentView: View {
               messageBody: "This is a test email string",
               attachmentInfo: (
                 fileURL: TaskStore.shared.tasksDocURL,
-                mimeType: "application/xml"),
-              result: self.$result)
+                mimeType: "application/xml"
+              ),
+              result: self.$mailComposeResult
+            )
+          }
+
+          // Export Via iMessages
+          Button(action: { self.iMessagesViewIsPresented = true }) {
+            Image(systemName: "square.and.pencil")
+          }
+          .frame(width: 44, height: 44, alignment: .center)
+          .disabled(!MFMessageComposeViewController.canSendText())
+          .sheet(isPresented: $iMessagesViewIsPresented) {
+            IMessagesView(
+              messageBody: "This is a test iMessage string",
+              attachmentInfo: (
+                fileURL: TaskStore.shared.tasksDocURL,
+                mimeType: "application/xml"
+              ),
+              result: self.$mailComposeResult
+            )
           }
 
           // Share Sheet
@@ -81,7 +104,8 @@ struct ContentView: View {
           .sheet(isPresented: $shareSheetIsPresented) {
             ShareSheet(
               activityItems: [TaskStore.shared.tasksDocURL],
-              excludedActivityTypes: [.copyToPasteboard])
+              excludedActivityTypes: [.copyToPasteboard]
+            )
           }
         }
       )
@@ -91,6 +115,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView( taskStore: TaskStore.shared )
+    ContentView(taskStore: TaskStore.shared)
   }
 }
